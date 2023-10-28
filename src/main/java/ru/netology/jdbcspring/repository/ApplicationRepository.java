@@ -1,4 +1,4 @@
-package com.example.dao.repository;
+package ru.netology.jdbcspring.repository;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -8,14 +8,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Repository
 public class ApplicationRepository {
-    private final String pathScript = "src/main/resources/myScript.sql";
-    private final String script = readScript(pathScript);
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final String scriptFileName = "select_script.sql";
+    private String script = readScript(scriptFileName);
 
     public ApplicationRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;

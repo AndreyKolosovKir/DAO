@@ -1,12 +1,13 @@
-package com.example.dao;
+package ru.netology.jdbcspring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DaoApplication {
+public class JdbcSpringApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DaoApplication.class, args);
+        SpringApplication.run(JdbcSpringApplication.class, args);
     }
+
 }

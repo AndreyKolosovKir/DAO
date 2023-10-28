@@ -1,10 +1,10 @@
-package com.example.dao;
+package ru.netology.jdbcspring;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DaoApplicationTests {
+class JdbcSpringApplicationTests {
 
     @Test
     void contextLoads() {
