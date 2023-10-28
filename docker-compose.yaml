@@ -5,15 +5,3 @@ services:
     build: ./
     ports:
       - '8080:8080'
-      
-  products:
-    image: postgres
-    container_name: products
-    volumes:
-      - /pg_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - "5432:5432"
-    restart: always

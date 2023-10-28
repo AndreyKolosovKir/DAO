@@ -8,6 +8,16 @@ create table netology.customers (
                                     phone_number bigint UNIQUE
 );
 
+create table netology.orders (
+                                 id serial primary key,
+                                 date date,
+                                 customer_id integer,
+                                 product_name varchar,
+                                 amount integer,
+                                 FOREIGN KEY (customer_id) REFERENCES netology.customers (id)
+);
+
+
 insert into netology.customers (name, surname, age, phone_number)
 values ('Viktor', 'Perminov', 25, 89658568585);
 
@@ -21,14 +31,6 @@ insert into netology.customers (name, surname, age, phone_number)
 values ('Andrey', 'Suvorov', 30, 89658567475);
 
 
-create table netology.orders (
-                                 id serial primary key,
-                                 date date,
-                                 customer_id integer,
-                                 product_name varchar,
-                                 amount integer,
-                                 FOREIGN KEY (customer_id) REFERENCES netology.customers (id)
-);
 
 insert into netology.orders (date, customer_id, product_name, amount)
 values ('2023-10-21', 1, 'Консоль', 1);

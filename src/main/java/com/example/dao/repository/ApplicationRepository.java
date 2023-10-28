@@ -1,7 +1,5 @@
 package com.example.dao.repository;
 
-import com.example.dao.collectionProducts.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -10,35 +8,23 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
 public class ApplicationRepository {
+    private final String pathScript = "src/main/resources/myScript.sql";
+    private final String script = readScript(pathScript);
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private final String pathScript = "myScript.sql";
+    public ApplicationRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
-    private int id = 0;
-
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    public String getProductName(String name) throws SQLException {
-        String script = readScript(pathScript);
-
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("name", name);
-
-        List<Product> products = namedParameterJdbcTemplate.query(script, parameters, (ResultSet rs, int rowNum) -> {
-            if (rs.getString("product_name") != null) {
-                id += 1;
-            }
-            String productName = rs.getString("product_name");
-            return new Product(id, productName);
-        });
-        return products.toString();
+    public List<String> getProductName(String name) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("name", name);
+        return namedParameterJdbcTemplate.queryForList(script, paramMap, String.class);
     }
 
     private static String readScript(String pathScript) {
